@@ -122,12 +122,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 
-STATIC_URL = '/static/'          # URL to access static files
-STATICFILES_DIRS = [             # Additional directories
-    BASE_DIR / "static",         # Project-level static directory
+# STATIC FILES
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",          # Project-level static directory
+    os.path.join(BASE_DIR, "static"),  # App-level static directory
 ]
-
 STATIC_ROOT = BASE_DIR / "staticfiles"  # For 'collectstatic' in production
+
+# MEDIA FILES (Images & Uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
