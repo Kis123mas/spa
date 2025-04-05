@@ -23,6 +23,21 @@ def DashboardPageView(request):
     return render(request, 'auth/dashboard.html')
 
 
+def StorePageView(request):
+    """ store page """
+    return render(request, 'auth/store.html')
+
+
+def BookPageView(request):
+    """ book page """
+    return render(request, 'auth/booksession.html')
+
+
+def UserReviewPageView(request):
+    """ review page """
+    return render(request, 'auth/review.html')
+
+
 def AboutPageView(request):
     """ about page """
     return render(request, 'firstApp/aboutpage.html')
