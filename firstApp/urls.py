@@ -6,6 +6,7 @@ urlpatterns = [
     path('', LandingPageView, name='landingpage'),
     path('register', RegisterPageView, name='registerpage'),
     path('login', LoginPageView, name='loginpage'),
+    path('dashboard', DashboardPageView, name='dashboardpage'),
     path('about', AboutPageView, name='aboutpage'),
     path('service', ServicePageView, name='servicepage'),
     path('products', ProductPageView, name='productpage'),

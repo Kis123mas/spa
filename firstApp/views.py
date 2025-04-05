@@ -1,6 +1,13 @@
 from django.shortcuts import render
 
 
+
+def LandingPageView(request):
+    """ landing page """
+    return render(request, 'firstApp/landingpage.html')
+
+
+
 def RegisterPageView(request):
     """ register page """
     return render(request, 'auth/register.html')
@@ -11,9 +18,9 @@ def LoginPageView(request):
     return render(request, 'auth/login.html')
 
 
-def LandingPageView(request):
-    """ landing page """
-    return render(request, 'firstApp/landingpage.html')
+def DashboardPageView(request):
+    """ dashboard """
+    return render(request, 'auth/dashboard.html')
 
 
 def AboutPageView(request):
