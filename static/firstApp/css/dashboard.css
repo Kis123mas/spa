@@ -39,6 +39,59 @@ a {
     font-family: 'Poppins', sans-serif;
 }
 
+/* SPINNER */
+.spinner-wrapper {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.spinner-image {
+    width: 50px;
+    height: 50px;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+
+.sticky-social-icon {
+    position: fixed;
+    right: 0;
+    top: 40%;
+    z-index: 1000;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+}
+
+.sticky-social-icon a {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #000;
+    text-decoration: none;
+}
+
+.sticky-social-icon a:hover {
+    color: var(--c-brand);
+}
+
+
+
 /* BTN */
 .btn {
     font-weight: 600;
