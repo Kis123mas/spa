@@ -88,7 +88,8 @@ def RecordservicePageView(request):
     else:
         form = ServiceRenderedForm()
 
-    return render(request, 'auth/recordservice.html', {'form': form})
+    services = ServiceRendered.objects.order_by('-created_at')
+    return render(request, 'auth/recordservice.html', {'form': form, 'services': services})
 
 
 
