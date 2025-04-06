@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import *
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
@@ -23,3 +23,15 @@ class CustomUserAdmin(UserAdmin):
     )
 
 admin.site.register(CustomUser, CustomUserAdmin)
+
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user_email', 'phone_number')
+    search_fields = ('user__email', 'phone_number')
+    list_filter = ('user__is_active',)
+
+    def user_email(self, obj):
+        return obj.user.email if obj.user else "-"
+    user_email.short_description = 'User Email'

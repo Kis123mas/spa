@@ -51,6 +51,8 @@
                             Dashboard
                         </a>
                     </li>
+
+                    {% if not user.is_secretary and not user.is_not_secretary and not user.is_admin %}
                     <li class="sidebar-item">
                         <a href="{% url 'storepage' %}" class="sidebar-link collapsed" aria-expanded="false"><i
                                 class="fa-solid fa-store pe-2"></i>
@@ -69,6 +71,30 @@
                             Review
                         </a>
                     </li>
+                    {% endif %}
+
+
+                    <!-- this nav is for admin and secretary alone! -->
+                    {% if user.is_secretary or user.is_admin %}
+                    <li class="sidebar-item">
+                        <a href="{% url 'userreviewpage' %}" class="sidebar-link collapsed" aria-expanded="false">
+                            <i class="fa-solid fa-clipboard-list pe-2"></i>
+                            Record Service
+                        </a>
+                    </li>
+                    
+                    <li class="sidebar-item">
+                        <a href="{% url 'userreviewpage' %}" class="sidebar-link collapsed" aria-expanded="false"><i
+                                class="fa-solid fa-wallet pe-2"></i>
+                            Payout
+                        </a>
+                    </li>
+
+                    
+                    {% endif %}
+
+
+
                 </ul>
             </div>
         </aside>
@@ -142,6 +168,7 @@
             }, 1000);
         });
     </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

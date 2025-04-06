@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .forms import CustomUserRegistrationForm
 
@@ -58,10 +59,17 @@ def logoutView(request):
     return redirect('landingpage') 
 
 
-
+@login_required
 def DashboardPageView(request):
-    """ dashboard """
-    return render(request, 'auth/dashboard.html')
+    user = request.user
+    profile = getattr(user, 'profile', None)
+
+    context = {
+        'user': user,
+        'profile': profile
+    }
+
+    return render(request, 'auth/dashboard.html', context)
 
 
 def StorePageView(request):
