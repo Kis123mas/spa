@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import CustomUserRegistrationForm
 
 
@@ -49,6 +49,14 @@ def LoginPageView(request):
             messages.error(request, "Invalid email or password.")
 
     return render(request, 'auth/login.html')
+
+
+
+def logoutView(request):
+    """Logout the user and redirect to the landing page"""
+    logout(request)
+    return redirect('landingpage') 
+
 
 
 def DashboardPageView(request):
