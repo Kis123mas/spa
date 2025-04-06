@@ -17,5 +17,6 @@ urlpatterns = [
     path('review', ReviewPageView, name='reviewpage'),
     path('contact', ContactPageView, name='contactpage'),
     path('calender', CalenderPageView, name='calenderpage'),
-    path('record-service', RecordservicePageView, name='recordservicepage')
+    path('record-service', RecordservicePageView, name='recordservicepage'),
+    path('calculate', CalculatePageView, name='calculate'),
 ]

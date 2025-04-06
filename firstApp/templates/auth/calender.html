@@ -5,30 +5,111 @@
 <div class="main">
     {% include 'auth/nav.html' %}
     <main class="content px-3 py-2">
-        <div class="mb-3">Calendar Page</div>
-        
-        <div class="row justify-content-center">
-            {% for day in days_of_week %}
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                    <div class="card shadow-lg rounded-3 border-0">
-                        <div class="card-body text-center py-4">
-                            <h4 class="text-primary mb-2">
-                                {{ day.date }}
-                            </h4>
-                            <p class="text-muted mb-2">
-                                {{ day.name }}
-                            </p>
-                            <div>
-                                <span class="badge text-white">
-                                    <a href="/" class="text-white text-decoration-none">View</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Record Service</h2>
+            <button type="button" class="btn btn-brand" data-bs-toggle="modal" data-bs-target="#serviceListModal">
+                <i class="fa fa-list pe-1"></i> View Uniform
+            </button>
         </div>
-        
+
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <h3 class="text-center mb-3">{{ month_name }} {{ year }}</h3>  <!-- Dynamically displaying the month and year -->
+            </div>
+
+            <!-- Calendar Table -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">Sun</th>
+                        <th class="text-center">Mon</th>
+                        <th class="text-center">Tue</th>
+                        <th class="text-center">Wed</th>
+                        <th class="text-center">Thu</th>
+                        <th class="text-center">Fri</th>
+                        <th class="text-center">Sat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for week in calendar_weeks %}
+                        <tr>
+                            {% for day in week %}
+                                <td class="text-center {% if day.is_current_month %}current-month{% else %}other-month{% endif %}
+                                            {% if day.day == current_day %}current-day{% endif %}">
+                                    <span class="day-number {% if day.day == 0 %}empty-day{% endif %}">{{ day.day }}</span>  <!-- Actual date goes here -->
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </main>
 </div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .calendar-container {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+
+    .calendar-header {
+        margin-bottom: 20px;
+    }
+
+    .calendar-header h3 {
+        font-size: 2rem;
+    }
+
+    /* Styling for the table */
+    .table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        padding: 15px;
+        vertical-align: middle;
+    }
+
+    .calendar-day {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        position: relative;
+    }
+
+    .calendar-day:hover {
+        background-color: #f8f9fa;
+    }
+
+    .day-number {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    /* Styling for different months */
+    .current-month {
+        background-color: #fff;
+    }
+
+    .other-month {
+        background-color: #f0f0f0;
+    }
+
+    /* Hide empty days */
+    .empty-day {
+        visibility: hidden;
+    }
+
+    /* Highlight the current day */
+    .current-day {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #0056b3;
+    }
+</style>
 {% endblock %}

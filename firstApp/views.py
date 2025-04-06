@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
+import calendar
 from datetime import datetime, timedelta
 
 
@@ -61,18 +62,44 @@ def logoutView(request):
 
 
 def CalenderPageView(request):
-    """ calender page """
-    today = datetime.today()
-    days_of_week = []
+    """ Calendar page view that renders a calendar with dates only """
     
-    for i in range(7):
-        day = today + timedelta(days=i)
-        days_of_week.append({
-            'name': day.strftime('%A'),
-            'date': day.strftime('%Y-%m-%d'),
-        })
+    # Get current date for dynamic month/year display
+    today = datetime.today()
+    month = today.month
+    year = today.year
+    
+    # Generate calendar for the month
+    cal = calendar.Calendar(firstweekday=6)  # Starts on Sunday
+    month_days = cal.monthdayscalendar(year, month)
+    
+    # Build list of days
+    days_of_week = []
+    for week in month_days:
+        week_days = []
+        for day in week:
+            if day != 0:  # If day is not 0, it is a valid day of the month
+                week_days.append({
+                    'day': day,
+                    'is_current_month': True,
+                })
+            else:
+                week_days.append({
+                    'day': '',
+                    'is_current_month': False,
+                })
+        days_of_week.append(week_days)
+    
+    # Pass month name and year dynamically
+    month_name = calendar.month_name[month]
+    
+    # Render the template with the generated data
+    return render(request, 'auth/calender.html', {
+        'calendar_weeks': days_of_week,
+        'month_name': month_name,
+        'year': year,
+    })
 
-    return render(request, 'auth/calender.html', {'days_of_week': days_of_week})
 
 
 
@@ -90,6 +117,14 @@ def RecordservicePageView(request):
 
     services = ServiceRendered.objects.order_by('-created_at')
     return render(request, 'auth/recordservice.html', {'form': form, 'services': services})
+
+
+
+
+def CalculatePageView(request):
+    """ calculate page """
+    return render(request, 'auth/calculate.html')
+
 
 
 
