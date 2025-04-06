@@ -59,7 +59,7 @@ def logoutView(request):
     return redirect('landingpage') 
 
 
-@login_required
+@login_required(login_url='loginpage')
 def DashboardPageView(request):
     user = request.user
     profile = getattr(user, 'profile', None)
