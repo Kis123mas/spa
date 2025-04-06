@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .forms import CustomUserRegistrationForm
+from .forms import *
+from datetime import datetime, timedelta
 
 
 
@@ -56,7 +57,39 @@ def LoginPageView(request):
 def logoutView(request):
     """Logout the user and redirect to the landing page"""
     logout(request)
-    return redirect('landingpage') 
+    return redirect('landingpage')
+
+
+def CalenderPageView(request):
+    """ calender page """
+    today = datetime.today()
+    days_of_week = []
+    
+    for i in range(7):
+        day = today + timedelta(days=i)
+        days_of_week.append({
+            'name': day.strftime('%A'),
+            'date': day.strftime('%Y-%m-%d'),
+        })
+
+    return render(request, 'auth/calender.html', {'days_of_week': days_of_week})
+
+
+
+def RecordservicePageView(request):
+    if request.method == 'POST':
+        form = ServiceRenderedForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Service recorded successfully.")
+            form = ServiceRenderedForm()
+        else:
+            print(form.errors)  # DEBUG
+    else:
+        form = ServiceRenderedForm()
+
+    return render(request, 'auth/recordservice.html', {'form': form})
+
 
 
 @login_required(login_url='loginpage')
@@ -113,6 +146,6 @@ def ContactPageView(request):
 
 
 
-def NotfoundPageView(request, exception=None):
+def NotfoundPageView(request, exception):
     """ not found page """
-    return render(request, 'auth/notfound.html')
+    return render(request, 'auth/notfound.html', status=404)

@@ -46,3 +46,68 @@ class UserProfile(models.Model):
     def __str__(self):
         return f'{self.user.email} Profile'
 
+
+
+class ServiceRendered(models.Model):
+    staff_name = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True, limit_choices_to={'is_not_secretary': True})
+    
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    
+
+    PAYMENT_CHOICES = [
+        ('cash', 'Cash'),
+        ('pos', 'POS'),
+        ('transfer', 'Transfer'),
+    ]
+    mode_of_payment = models.CharField(max_length=10, choices=PAYMENT_CHOICES)
+    
+    # Type of service (Solo or Contract)
+    SERVICE_TYPE_CHOICES = [
+        ('solo', 'Solo'),
+        ('contract', 'Contract'),
+    ]
+    service_type = models.CharField(max_length=10, choices=SERVICE_TYPE_CHOICES)
+
+    # Type of service (Solo or Contract)
+    SERVICE_TYPE_RENDERED = [
+        ('Massage Therapy', 'Massage Therapy'),
+        ('Facial Treatments', 'Facial Treatments'),
+        ('Aromatherapy', 'Aromatherapy'),
+        ('Body Scrubs', 'Body Scrubs'),
+        ('Steam & Sauna', 'Steam & Sauna'),
+        ('Nail Care', 'Nail Care'),
+    ]
+    service_rendered = models.CharField(max_length=20, null=True, blank=True, choices=SERVICE_TYPE_RENDERED)
+    
+    # Date when the service was rendered
+    service_date = models.DateField(auto_now_add=True)
+    
+    # Additional description for the service
+    description = models.TextField(null=True, blank=True)
+    
+    # Staff position or role for context
+    staff_role = models.CharField(max_length=100, null=True, blank=True)
+    
+    # Optionally, the service can have a customer associated with it (if applicable)
+    customer_name = models.CharField(max_length=255, null=True, blank=True)
+    
+    # Optional field for tracking the invoice number
+    invoice_number = models.CharField(max_length=50, unique=True, null=True, blank=True)
+    
+    # Timestamp for when the service record was created
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    # Optionally, a status field to track whether the payment has been confirmed or pending
+    PAYMENT_STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('confirmed', 'Confirmed'),
+    ]
+    payment_status = models.CharField(max_length=10, choices=PAYMENT_STATUS_CHOICES, default='pending')
+
+    def __str__(self):
+        return f"Service Rendered by {self.staff_name} on {self.service_date} - {self.amount}"
+
+    class Meta:
+        verbose_name = "Service Rendered"
+        verbose_name_plural = "Services Rendered"
+        ordering = ['-service_date']

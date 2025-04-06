@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
+from .models import *
 from django.core.exceptions import ValidationError
 import re
 
@@ -67,3 +67,31 @@ class CustomUserRegistrationForm(UserCreationForm):
         if not re.search(r'[0-9]', password):
             return False
         return True
+
+
+
+class ServiceRenderedForm(forms.ModelForm):
+    class Meta:
+        model = ServiceRendered
+        fields = [
+            'staff_name', 'amount', 'mode_of_payment', 'service_type',
+            'service_rendered', 'description', 'staff_role',
+            'customer_name', 'invoice_number', 'payment_status'
+        ]
+        widgets = {
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'staff_name': forms.Select(attrs={'class': 'form-control'}),
+            'mode_of_payment': forms.Select(attrs={'class': 'form-control'}),
+            'service_type': forms.Select(attrs={'class': 'form-control'}),
+            'service_rendered': forms.Select(attrs={'class': 'form-control'}),
+            'payment_status': forms.Select(attrs={'class': 'form-control'}),
+            'amount': forms.NumberInput(attrs={'class': 'form-control'}),
+            'staff_role': forms.TextInput(attrs={'class': 'form-control'}),
+            'customer_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'invoice_number': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ServiceRenderedForm, self).__init__(*args, **kwargs)
+        # Filter staff_name queryset
+        self.fields['staff_name'].queryset = CustomUser.objects.filter(is_not_secretary=True)

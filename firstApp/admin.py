@@ -35,3 +35,17 @@ class UserProfileAdmin(admin.ModelAdmin):
     def user_email(self, obj):
         return obj.user.email if obj.user else "-"
     user_email.short_description = 'User Email'
+
+
+
+class ServiceRenderedAdmin(admin.ModelAdmin):
+    list_display = ['staff_name', 'amount', 'service_type', 'service_rendered', 'service_date']
+    search_fields = ['staff_name__username', 'service_type']
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'staff_name':
+            # Only show users where is_not_secretary=True
+            kwargs['queryset'] = CustomUser.objects.filter(is_not_secretary=True)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+admin.site.register(ServiceRendered, ServiceRenderedAdmin)

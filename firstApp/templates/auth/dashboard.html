@@ -8,7 +8,7 @@
     <main class="content px-3 py-2">
         <div class="container-fluid">
             <div class="mb-3">
-                <h4>Dashboard</h4>
+                <h4>Secretary Dashboard</h4>
             </div>
 
             {% if not user.is_secretary and not user.is_not_secretary and not user.is_admin %}
@@ -160,7 +160,225 @@
 
 
             {% if user.is_secretary or user.is_admin %}
+
+            <div class="row g-4">
+                <div class="col-12 col-md-4 d-flex">
+                    <div class="card flex-fill border-0">
+                        <div class="card-body py-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-2">
+                                        78
+                                    </h4>
+                                    <p class="mb-2">
+                                        Numbers of Client Users
+                                    </p>
+                                    <div class="mb-0">
+                                        <span class="badge text-success me-2">
+                                            <a href="/" >view</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             
+                <div class="col-12 col-md-4 d-flex">
+                    <div class="card flex-fill border-0">
+                        <div class="card-body py-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-2">
+                                        78
+                                    </h4>
+                                    <p class="mb-2">
+                                        Numbers of Staff Users
+                                    </p>
+                                    <div class="mb-0">
+                                        <span class="badge text-success me-2">
+                                            <a href="/" >view</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-12 col-md-4 d-flex">
+                    <div class="card flex-fill border-0">
+                        <div class="card-body py-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-2">
+                                        78
+                                    </h4>
+                                    <p class="mb-2">
+                                        Total numbers of Users
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- revenue card -->
+            <div class="row g-4">
+                <div class="col-12 col-md-4 d-flex">
+                    <div class="card flex-fill border-0">
+                        <div class="card-body py-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-2">
+                                        ₦ 78.00
+                                    </h4>
+                                    <p class="mb-2">
+                                        Total Expenses
+                                    </p>
+                                    <div class="mb-0">
+                                        <span class="badge text-success me-2">
+                                            <a href="/" >view</a>
+                                        </span>
+                                        <span class="text-muted">
+                                            January
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-12 col-md-4 d-flex">
+                    <div class="card flex-fill border-0">
+                        <div class="card-body py-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-2">
+                                        ₦ 78.00
+                                    </h4>
+                                    <p class="mb-2">
+                                        Total Earnings
+                                    </p>
+                                    <div class="mb-0">
+                                        <span class="badge text-success me-2">
+                                            <a href="/" >view</a>
+                                        </span>
+                                        <span class="text-muted">
+                                            January
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-12 col-md-4 d-flex">
+                    <div class="card flex-fill border-0">
+                        <div class="card-body py-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-2">
+                                        ₦ 78.00
+                                    </h4>
+                                    <p class="mb-2">
+                                        Total Profit
+                                    </p>
+                                    <div class="mb-0">
+                                        <!-- <span class="badge text-success me-2">
+                                            +9.0%
+                                        </span> -->
+                                        <span class="text-muted">
+                                            January
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- order card -->
+            <div class="row g-4">
+                <div class="col-12 col-md-4 d-flex">
+                    <div class="card flex-fill border-0">
+                        <div class="card-body py-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-2">
+                                        Delivered Orders
+                                    </h4>
+                                    <p class="mb-2">
+                                        Total Expenses
+                                    </p>
+                                    <div class="mb-0">
+                                        <span class="badge text-success me-2">
+                                            <a href="/" >view</a>
+                                        </span>
+                                        <span class="text-muted">
+                                            January
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-12 col-md-4 d-flex">
+                    <div class="card flex-fill border-0">
+                        <div class="card-body py-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-2">
+                                        Pending Orders
+                                    </h4>
+                                    <p class="mb-2">
+                                        Total Earnings
+                                    </p>
+                                    <div class="mb-0">
+                                        <span class="badge text-success me-2">
+                                            <a href="/" >view</a>
+                                        </span>
+                                        <span class="text-muted">
+                                            January
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-12 col-md-4 d-flex">
+                    <div class="card flex-fill border-0">
+                        <div class="card-body py-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-2">
+                                        ₦ 78.00
+                                    </h4>
+                                    <p class="mb-2">
+                                        Total Profit
+                                    </p>
+                                    <div class="mb-0">
+                                        <!-- <span class="badge text-success me-2">
+                                            +9.0%
+                                        </span> -->
+                                        <span class="text-muted">
+                                            January
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             {% endif %}
 

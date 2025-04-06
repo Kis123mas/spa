@@ -77,7 +77,7 @@
                     <!-- this nav is for admin and secretary alone! -->
                     {% if user.is_secretary or user.is_admin %}
                     <li class="sidebar-item">
-                        <a href="{% url 'userreviewpage' %}" class="sidebar-link collapsed" aria-expanded="false">
+                        <a href="{% url 'recordservicepage' %}" class="sidebar-link collapsed" aria-expanded="false">
                             <i class="fa-solid fa-clipboard-list pe-2"></i>
                             Record Service
                         </a>
@@ -87,6 +87,13 @@
                         <a href="{% url 'userreviewpage' %}" class="sidebar-link collapsed" aria-expanded="false"><i
                                 class="fa-solid fa-wallet pe-2"></i>
                             Payout
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{% url 'calenderpage' %}" class="sidebar-link collapsed" aria-expanded="false"><i
+                                class="fa-solid fa-calendar pe-2"></i>
+                            Calender
                         </a>
                     </li>
 
