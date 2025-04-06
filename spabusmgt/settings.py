@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['rite-living-spa.onrender.com', 'localhost', '127.0.0.1']
 
+AUTH_USER_MODEL = 'firstApp.CustomUser'
+
 
 # Application definition
 
