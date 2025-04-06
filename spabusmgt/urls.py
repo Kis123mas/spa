@@ -18,12 +18,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from firstApp.views import NotfoundPageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('firstApp.urls')),
 ]
 
+# Custom 404 handler
+handler404 = 'firstApp.views.NotfoundPageView'
 
 # Serving static and media files during development
 if settings.DEBUG:

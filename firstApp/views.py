@@ -110,3 +110,9 @@ def ReviewPageView(request):
 def ContactPageView(request):
     """ contact page """
     return render(request, 'firstApp/contactpage.html')
+
+
+
+def NotfoundPageView(request, exception=None):
+    """ not found page """
+    return render(request, 'auth/notfound.html')
