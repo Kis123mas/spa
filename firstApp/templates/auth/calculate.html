@@ -5,10 +5,101 @@
 <div class="main">
     {% include 'auth/nav.html' %}
     <main class="content px-3 py-2">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Calculate</h2>
-        </div>
 
+        <!-- Filter Form -->
+        <form method="GET" class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label for="month" class="form-label">Select Month</label>
+                <select class="form-select" id="month" name="month">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4" selected>April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="year" class="form-label">Select Year</label>
+                <select class="form-select" id="year" name="year">
+                    <option value="2023">2023</option>
+                    <option value="2024" selected>2024</option>
+                    <option value="2025">2025</option>
+                </select>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">View Records</button>
+            </div>
+        </form>
+
+        <!-- Staff Jobs Table -->
+        <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark sticky-top">
+                    <tr>
+                        <th>Staff Name</th>
+                        <th>Jobs Done ({{ month_name }})</th>
+                        <th>View Jobs</th>
+                        <th>Calculate Payout</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for staff in staff_jobs %}
+                        <tr>
+                            <td>{{ staff.staff_name__first_name }} {{ staff.staff_name__last_name }}</td>
+                            <td>{{ staff.jobs_done }}</td>
+                            <td><button class="btn btn-sm btn-primary">View Jobs</button></td>
+                            <td><button class="btn btn-sm btn-success">Calculate Payout</button></td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No records found for this period.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+        <!-- Payment Summary Table -->
+        <div class="mt-4">
+            <h4>Total Payments - {{ month_name }} {{ year }}</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Payment Method</th>
+                            <th>Total Amount (₦)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cash</td>
+                            <td>₦{{ payment_summary.cash|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>POS</td>
+                            <td>₦{{ payment_summary.pos|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Transfer</td>
+                            <td>₦{{ payment_summary.transfer|floatformat:2 }}</td>
+                        </tr>
+                        <tr class="table-secondary">
+                            <th>Total</th>
+                            <th>₦{{ payment_summary.cash|add:payment_summary.pos|add:payment_summary.transfer|floatformat:2 }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
     </main>
 </div>
 {% endblock %}

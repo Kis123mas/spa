@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
 import calendar
-from datetime import datetime, timedelta
+from .models import *
+from datetime import datetime, timedelta, date
+from django.db.models import Count, Sum
 
 
 
@@ -120,11 +122,47 @@ def RecordservicePageView(request):
 
 
 
-
 def CalculatePageView(request):
-    """ calculate page """
-    return render(request, 'auth/calculate.html')
+    # Get month/year from GET params or use current month/year as default
+    month = int(request.GET.get('month', date.today().month))
+    year = int(request.GET.get('year', date.today().year))
+    month_name = calendar.month_name[month]
 
+    # Filter services by selected month and year, and ensure staff is not secretary
+    services = ServiceRendered.objects.filter(
+        service_date__month=month,
+        service_date__year=year,
+        staff_name__is_not_secretary=True  # Ensure the staff is not a secretary
+    )
+
+    # Group by staff and count jobs
+    staff_jobs = (
+        services.values('staff_name__id', 'staff_name__first_name', 'staff_name__last_name')
+        .annotate(jobs_done=Count('id'))
+        .order_by('staff_name__first_name')
+    )
+
+    # Calculate totals by payment method
+    payment_totals = (
+        services.values('mode_of_payment')
+        .annotate(total=Sum('amount'))
+    )
+
+    # Create a payment summary dict
+    payment_summary = {'cash': 0, 'pos': 0, 'transfer': 0}
+    for entry in payment_totals:
+        payment_summary[entry['mode_of_payment']] = entry['total'] or 0
+        
+
+    context = {
+        'staff_jobs': staff_jobs,
+        'payment_summary': payment_summary,
+        'month': month,
+        'year': year,
+        'month_name': month_name,
+    }
+
+    return render(request, 'auth/calculate.html', context)
 
 
 
